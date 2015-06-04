@@ -1,0 +1,32 @@
+<ion-view view-title="Histórico">
+    <ion-header-bar align-title="center" class="bar-positive">
+            <div class="buttons">
+                <button class="button" onclick="window.location.href='#/'">Menu Principal</button>
+            </div>
+            <h1 class="title">Histórico</h1>
+    </ion-header-bar>
+    <ion-content>
+            <div id="historicoContainer">
+                    <h2>Filtro</h2>
+                    <form ng-submit="filtrar()">
+                            <label class="item item-input">                                                                        
+                                    <span class="input-label">Check-in</span>
+                                    <input type="date" name="checkin" ng-model="histData.checkin" >
+                            </label>
+                            <label class="item item-input">
+                                    <span class="input-label">Check-in</span>
+                                    <input type="date" name="checkout" ng-model="histData.checkout" >
+                            </label>
+                            <input type="submit" value="Filtrar">
+            </form>
+                    <input type="submit" ng-click="limparCampos()" value="Reset">
+             <div ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="client in clients.slice().reverse()">
+                     <p>nome: {{client.nome}}</p>
+                     <p>cabana: {{client.cabana}}</p>
+                     <p>check-in: {{client.checkin | date:'d/M/yyyy'}}</p>
+                     <p>check-out: {{client.checkout | date:'d/M/yyyy'}}</p>
+                     <p>check-out confirmado: {{client.checkoutConfirmado}}</p>
+             </div>
+            </script>
+     </ion-content>
+</ion-view>

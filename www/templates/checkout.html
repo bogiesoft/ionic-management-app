@@ -1,0 +1,18 @@
+<ion-view view-title="Check-out">
+	<ion-header-bar align-title="center" class="bar-positive">
+                <div class="buttons">
+		       	<button class="button" onclick="window.location.href='#/'">Menu Principal</button>	
+		</div>
+		<h1 class="title">Check-out</h1>
+	</ion-header-bar>
+     	<ion-content>
+                <div class="checkoutContainer" ng-repeat="client in clients" ng-if="!client.checkoutConfirmado" ng-class-odd="'odd'" ng-class-even="'even'">
+                                <p>nome: <span>{{client.nome}}</span></p>
+                                <p>cabana: <span>{{client.cabana}}</span></p>
+                                <p>checkin: <span>{{client.checkin | date:'dd/M/yyyy'}}</span></p>
+                                <p>checkout: <span>{{client.checkout | date:'dd/M/yyyy'}}</span></p>
+                                <input type="submit" ng-click="checkout({{client}})" value="Check-out">
+                        </form>
+                </div>			
+	</ion-content>
+</ion-view>

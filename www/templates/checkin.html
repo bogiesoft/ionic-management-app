@@ -1,0 +1,33 @@
+<ion-view view-title="Check-in">
+	<ion-header-bar align-title="center" class="bar-positive">
+		<div class="buttons"> 
+			<button class="button" onclick="window.location.href='#/'">Menu Principal</button>
+	       	</div>
+		<h1 class="title">Check-in</h1>
+	</ion-header-bar>	
+	<ion-content>
+		    <div id="checkinContainer">
+			<form name="checkinForm" novalidate  ng-submit="submit()"> 
+			    <input type="text" name="nome" placeholder="Nome" ng-model="checkinData.nome" required>
+			    <input type="text" name="cidade" ng-model="checkinData.cidade" placeholder="Cidade">
+		            <input type="email" name="email" ng-model="checkinData.email" placeholder="Email">
+		            <select name="sexo" ng-model="checkinData.sexo" required>
+			      <option value="">Sexo</option>	  
+			      <option value="masculino">Masculino</option>
+		              <option value="feminino">Feminino</option>
+		            </select>
+			    <label class="item item-input">
+			   	<span class="input-label">Check-in</span>
+			    	<input type="date" name="checkin" ng-model="checkinData.checkin" required>
+			    </label>
+			    <label class="item item-input">
+			   	<span class="input-label">Check-out</span>
+			    	<input type="date" name="checkout" ng-model="checkinData.checkout" required>
+			    </label>
+			    <input type="text" name="cabana" placeholder="Cabana" ng-model="checkinData.cabana" required>
+			    <input type="text" name="pessoas" placeholder="Número de pessoas" ng-model="checkinData.pessoas" required>
+			    <input type="submit" value="salvar" ng-disabled="checkinForm.$invalid"> 
+		        </form>
+		</div>
+	</ion-content>
+</ion-view>

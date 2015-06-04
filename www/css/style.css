@@ -1,0 +1,101 @@
+/* Empty. Add your own CSS if you like */
+/* Checkin */
+#checkinContainer {
+	height:100%;
+	padding:20px;
+}
+
+#checkinContainer label {
+	padding:20px;
+}
+
+#checkinContainer input, select {
+	height:40px;
+	width:100%;
+	font-size:20px;
+	padding:10px;
+	font-size:18px;	
+	border:solid 1px;
+	border-color: #ccc;
+	border-radius:2px;
+	margin-bottom:10px;
+}
+
+#checkinContainer label {
+	margin-bottom:10px;
+}
+
+#checkinContainer input[type='submit'] {
+	padding:5px 15px; 
+	background:#00DB0C; 
+	border:0 
+	none;
+	width:100%; 
+	height:45px;
+	font-size:20px;
+	color:#fff
+}
+
+/* history.html */
+#historicoContainer {
+	padding:20px;
+}
+
+#historicoContainer input {
+	height:40px;
+	width:100%;
+	font-size:20px;
+	padding:10px;
+	font-size:18px;	
+	border:solid 1px;
+	border-color: #ccc;
+	border-radius:2px;
+	margin-bottom:10px;
+}
+
+#historicoContainer input[type="submit"] {
+	padding:5px 15px; 
+	background:#00DB0C; 
+	border:0 
+	none;
+	width:100%; 
+	height:45px;
+	font-size:20px;
+	color:#fff
+}
+#historicoContainer .even {
+	font-size:22px;
+	padding:20px;
+}
+#historicoContainer .odd {	
+	font-size:22px;
+	padding:20px;
+	background: #eee;	
+	border: solid 2px #ccc;
+}
+
+/* checkout.html */
+.checkoutContainer {
+        padding:20px;
+        font-size:18px;
+}
+
+.checkoutContainer.odd {
+        background:#eee;
+}
+
+.checkoutContainer span {
+        font-weight:bold;
+}
+
+.checkoutContainer input[type="submit"] {
+        padding:5px 15px;
+        background:#00DB0C;
+        border:0
+        none;
+        width:100%;
+        height:45px;
+        font-size:20px;
+        color:#fff
+}
+
