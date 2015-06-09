@@ -1,5 +1,5 @@
 <ion-view view-title="Histórico">
-    <ion-header-bar align-title="center" class="bar-positive">
+    <ion-header-bar align-title="center" class="bar-stable">
             <div class="buttons">
                 <button class="button" onclick="window.location.href='#/'">Menu Principal</button>
             </div>
@@ -18,15 +18,15 @@
                                     <input type="date" name="checkout" ng-model="histData.checkout" >
                             </label>
                             <input type="submit" value="Filtrar">
-            </form>
+     		    </form>
                     <input type="submit" ng-click="limparCampos()" value="Reset">
-             <div ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="client in clients.slice().reverse()">
+             <div ng-repeat="client in clients.slice().reverse()" ng-class-odd="'odd'" ng-class-even="'even'" >
                      <p>nome: {{client.nome}}</p>
                      <p>cabana: {{client.cabana}}</p>
                      <p>check-in: {{client.checkin | date:'d/M/yyyy'}}</p>
                      <p>check-out: {{client.checkout | date:'d/M/yyyy'}}</p>
                      <p>check-out confirmado: {{client.checkoutConfirmado}}</p>
              </div>
-            </script>
-     </ion-content>
+		</div>
+	</ion-content>
 </ion-view>

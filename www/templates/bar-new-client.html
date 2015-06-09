@@ -1,0 +1,26 @@
+<ion-view>
+	<ion-header-bar align-title="center" class="bar-stable">
+		<div class="buttons">
+			<button class="button" ng-click="closeModal()">Voltar</button>
+		</div>
+		<h1 class="title">Novo Cliente Bar</h1>
+	</ion-header-bar>	
+	<ion-content>
+		<div id="barNovoClientContainer">
+			<form ng-submit="inserirBarNovoClient()"> 
+				<input type="text" placeholder="nome" name="nome" ng-model="barData.nome" required>
+				<select ng-model="barData.cabana" name="cabana" required>
+					<option value="">Cabana</option>
+					<option ng-repeat="item in cabanas" value="{{item}}">{{item}}</option>
+				</select>
+				<select ng-model="barData.sexo" name="sexo" required>
+					<option value="">Sexo</option>
+					<option value="Feminino">Feminino</option>
+					<option value="Masculino">Masculino</option>
+				</select>
+				<input type="email" name="email" ng-model="barData.email" placeholder="email">
+				<input type="submit" value="Salvar" ng-disabled="checkinForm.$invalid">
+			</form>
+		</div>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,22 @@
+<ion-view>
+	<ion-header-bar align-title="center" class="bar-stable">
+		<div class="buttons">
+			<button class="button" onclick="window.location.href='#/'">Menu Principal</button>
+		</div>
+		<h1 class="title">Bar</h1>
+		<div id="newBarClientBtn" class="button">
+			<a class="button ion-person-add" ng-click="openModal()"></a>
+		</div>
+	</ion-header-bar>
+	<ion-content>
+		<div class="barContainer" ng-repeat="client in clients.slice().reverse()" nf-id="!client.checkoutConfirmado" ng-class-odd="'odd'" ng-class-even="'even'">
+			<li class="item item-button-right" ng-click="go(client)">
+				<h1>{{client.nome}}</h1>
+				<h2>{{client.cabana}}</h2>
+				<button class="button button-clear">
+					<i class="icon icon-right ion-chevron-right"></i>
+				</button>
+			</li>
+		</div>
+	</ion-content>
+</ion-view>

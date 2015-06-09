@@ -38,7 +38,31 @@ angular.module('starter', ['ionic', 'starter.controllers', 'LocalStorageModule']
 			templateUrl:'templates/checkout.html',
 			controller:'checkoutCtrl'
 		})
-		
+
+		.state('completar-checkout', {
+			url:'/completar-checkout',
+			templateUrl:'templates/completar-checkout.html',
+			controller:'compCheckoutCtrl'
+		})
+
+		.state('bar', {
+			url:'/Bar',
+			templateUrl:'templates/bar.html',
+			controller:'barCtrl',
+		})
+
+		.state('bar-client', {
+			url:'/bar-client',
+			templateUrl: 'templates/bar-client.html',
+			controller:'barClientCtrl'
+		})
+
+		.state('bar-new-client', {
+			url:'/bar-new-client',
+			templateUrl:'templates/bar-new-client.html',
+			controller:'barNewClientCtrl'
+		})
+
 		.state('history', {
 			url:'/Histórico',
 			templateUrl:'templates/history.html',

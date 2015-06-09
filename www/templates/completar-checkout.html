@@ -1,0 +1,20 @@
+<ion-view>
+	<ion-header-bar align-title="center" class="bar-stable">
+	        <div class="buttons">	
+			<button class="button" onclick="window.location.href='#/Check-out'">  Voltar</button>
+		</div>
+		<h1 class="title">Confirmar Checkout</h1>
+	</ion-header-bar>
+	<ion-content>
+		<div id="confirmarCheckoutContainer">
+			<p>nome <span>{{client.nome}}</span></p>	
+			<p>cabana: <span>{{client.cabana}}</span></p>	
+			<p>check-in: <span>{{client.checkin | date: dd/MM/yyyy}}</span></p>	
+			<p>check-out: <span>{{client.checkout | date: dd/MM/yyyy}}</span></p>	
+			<p>diária: <span>R$ {{diaria}}</span></p>
+			<p>bar: <span>R$ {{client.bar}}</span>
+			<p>total hospedagem: <span> <!-- diarias + bar --> </span>	
+			<input type="submit" value="Confirmar Checkout">
+		</div>		
+	</ion-content>
+</ion-view>

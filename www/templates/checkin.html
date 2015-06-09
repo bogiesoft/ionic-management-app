@@ -1,5 +1,5 @@
 <ion-view view-title="Check-in">
-	<ion-header-bar align-title="center" class="bar-positive">
+	<ion-header-bar align-title="center" class="bar-stable">
 		<div class="buttons"> 
 			<button class="button" onclick="window.location.href='#/'">Menu Principal</button>
 	       	</div>
@@ -8,7 +8,7 @@
 	<ion-content>
 		    <div id="checkinContainer">
 			<form name="checkinForm" novalidate  ng-submit="submit()"> 
-			    <input type="text" name="nome" placeholder="Nome" ng-model="checkinData.nome" required>
+			    <input type="text" name="nome" placeholder="Nome e sobrenome" ng-model="checkinData.nome" required>
 			    <input type="text" name="cidade" ng-model="checkinData.cidade" placeholder="Cidade">
 		            <input type="email" name="email" ng-model="checkinData.email" placeholder="Email">
 		            <select name="sexo" ng-model="checkinData.sexo" required>
@@ -24,8 +24,12 @@
 			   	<span class="input-label">Check-out</span>
 			    	<input type="date" name="checkout" ng-model="checkinData.checkout" required>
 			    </label>
-			    <input type="text" name="cabana" placeholder="Cabana" ng-model="checkinData.cabana" required>
-			    <input type="text" name="pessoas" placeholder="Número de pessoas" ng-model="checkinData.pessoas" required>
+			    <select ng-model="checkinData.cabana" name="cabana" required>
+				<option value="">Cabana</option>
+		            	<option ng-repeat="item in cabanas" value="{{item}}">{{item}}</option>
+			    </select>
+			    <input type="number" name="pessoas" placeholder="Número de pessoas" ng-model="checkinData.pessoas"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+			    <input type="number" name="diaria" placeholder="Diária" ng-model="checkinData.diaria" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
 			    <input type="submit" value="salvar" ng-disabled="checkinForm.$invalid"> 
 		        </form>
 		</div>

@@ -89,7 +89,7 @@
 }
 
 .checkoutContainer input[type="submit"] {
-        padding:5px 15px;
+	padding:5px 15px;
         background:#00DB0C;
         border:0
         none;
@@ -99,3 +99,122 @@
         color:#fff
 }
 
+/* confirmar-checkout.html */
+#confirmarCheckoutContainer {
+	padding:20px;
+	font-size:18px;		
+}
+
+#confirmarCheckoutContainer input[type="submit"] {
+	margin:20px 0;
+	padding:5px 15px;
+        background:#00DB0C;
+        border:0
+        none;
+        width:100%;
+        height:45px;
+        font-size:20px;
+        color:#fff
+}
+
+#confirmarCheckoutContainer span {
+	font-weight:bold;
+}
+
+/* bar.html */
+#newBarClientBtn  {
+	border:none
+}
+.barContainer span {
+	font-weight:bold;
+}
+
+.barContainer.odd {
+        font-size:22px;
+}
+
+.barContainer.even {
+	font-size:22px;
+}
+
+.barContainer button {
+	margin:30px 0;
+}
+
+/* bar-client.html */
+
+#resetProdutosBar, #salvarProdutosBar, #resumoProdutosBar {
+	margin:1px 0;
+	padding:5px 15px;
+	background:#00DB0C;
+	border:0
+	none;
+	width:100%;
+	height:60px;
+	font-size:20px;
+	color:#fff;
+	float:left;
+	font-weight:bold;
+}
+
+#resetProdutosBar {
+	background:red;
+}
+
+#resumoProdutosBar {
+	background:#00CCFF;
+}
+
+.barClientContainer .title {
+	font-size:25px;
+}
+
+.barClientContainer .qty {
+	font-size:25px;
+	float:right;
+}
+
+#barClientNome {
+	width:100%;
+	padding:20px;
+}
+
+#barClientNome {
+	text-align:center;
+}
+
+#resumoBar {
+	width:100%;
+	background:none;
+	border:none;
+	font-size:20px;
+	color:#fff;	
+}
+
+#barNovoClientContainer {
+	padding:20px;
+}
+
+#barNovoClientContainer input, select {
+        height:40px;
+	width:100%;
+	font-size:20px;
+	padding:10px;
+	font-size:18px;
+	border:solid 1px;
+	border-color: #ccc;
+	border-radius:2px;
+	margin-bottom:10px;
+}
+
+#barNovoClientContainer input[type='submit'] {
+	padding:5px 15px; 
+	background:#00DB0C; 
+	border:0 
+	none;
+	width:100%; 
+	height:45px;
+	font-size:20px;
+	color:#fff
+}
+ 
