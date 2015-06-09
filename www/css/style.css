@@ -166,20 +166,18 @@
 }
 
 .barClientContainer .title {
-	font-size:25px;
+	font-size:20px;
 }
 
 .barClientContainer .qty {
-	font-size:25px;
+	font-size:20px;
 	float:right;
 }
 
 #barClientNome {
 	width:100%;
-	padding:20px;
-}
-
-#barClientNome {
+	padding:15px;
+	height:60px;
 	text-align:center;
 }
 

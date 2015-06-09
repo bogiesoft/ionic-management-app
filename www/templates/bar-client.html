@@ -1,13 +1,13 @@
 <ion-view>
 	<ion-header-bar align-title="center" class="bar-stable">
 		<div class="buttons">
-			<button class="button" onclick="window.location.href='#/Bar'">Voltar</button>
+			<button class="button" ng-click="voltar()">Voltar</button>
 		</div>
-		<h1 class="title">Cliente Bar</h1>
+		<h1 class="title">{{client.nome}}</h1>
 	</ion-header-bar>
 	<ion-content>
 		<div id="barClientNome">
-			<h3>{{client.nome}}</h3>
+			<h3>R$ {{subtotal}}</h3>
 		</div>
 		<div class="barClientContainer" ng-repeat="produto in produtos">
 			<li class="item item-button-right" ng-click="addItem({{produto}})">

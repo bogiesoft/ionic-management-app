@@ -1,3 +1,13 @@
+var produtos =	[
+	{'title':'Refrigerante', 'qty':0, 'preco':2.50},
+	{'title': 'Refrigerante 2 Litros', 'qty':0, 'preco': 3.50},
+	{'title': 'Suco', 'qty':0,'preco': 2.00},
+	{'title': 'Água', 'qty':0,'preco':2.00},
+	{'title': 'Água com gás', 'qty':0,'preco': 2.50},
+	{'title': 'Picolé sabor fruta', 'qty':0,'preco': 2.00},
+	{'title': 'Picolé sabor chocolate', 'qty':0,'preco': 2.50}
+]
+
 angular.module('starter.controllers', ['LocalStorageModule'])
 
 .controller('menuCtrl', function($scope) {
@@ -13,7 +23,6 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
 .controller('checkinCtrl', function($scope, $location, localStorageService) {
    	 var clients = localStorageService.get('clients') || []; 
-    
 	$scope.cabanas = [
 		'Tucano',
 		'Lagao',
@@ -51,7 +60,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 			cabana:client.cabana,
 			sexo: client.sexo,
 			email: client.email,
-			produtos:[],
+			produtos:produtos,
 			total: 0,
 			pago: false
 		}
@@ -167,12 +176,17 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 	}
 })
 
-.controller('barCtrl', function($scope, $ionicModal, dataService, $location, localStorageService) {
+.controller('barCtrl', function($scope, $ionicModal, barService, $location, localStorageService) {
 	$scope.clients = localStorageService.get('bar')
 	
 	$scope.go = function(client) {
-		dataService.update(client)
-		$location.path('/bar-client')
+		var barClients = localStorageService.get('bar');
+		barClients.forEach(function(obj) {
+			if(client.nome == obj.nome) {
+				barService.update(obj)
+				$location.path('/bar-client')
+			}
+		})
 	}
 
     	$scope.cabanas = [
@@ -207,42 +221,76 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 	};
 })
 
-.controller('barClientCtrl', function($scope, $location, dataService, localStorageService) {
-	var client = dataService.client;
-	$scope.client = dataService.client;
+.factory('barService', function() {
+    	return {
+		barClient: {},
 
-	$scope.produtos = [
-		{'title':'Refrigerante', 'qty':0, 'preco':2.50},
-		{'title': 'Refrigerante 2 Litros', 'qty':0, 'preco': 3.50},
-		{'title': 'Suco', 'qty':0,'preco': 2.00},
-		{'title': 'Água', 'qty':0,'preco':2.00},
-		{'title': 'Água com gás', 'qty':0,'preco': 2.50},
-		{'title': 'Picolé sabor fruta', 'qty':0,'preco': 2.00},
-		{'title': 'Picolé sabor chocolate', 'qty':0,'preco': 2.50}
-	]
+		update: function(client) {
+			this.barClient = client;
+		}
+	}
+})
 
+.controller('barClientCtrl', function($scope, $location, barService, localStorageService) {
+
+	var barClient = barService.barClient;
+	$scope.client = barService.barClient;
+	$scope.produtos = produtos;
+	$scope.subtotal = 0;
+	
+	$scope.voltar = function() {
+		$scope.produtos.forEach(function(data){
+			data.qty = 0;
+		})
+		$location.path('/Bar')
+	}
+	
 	$scope.resetProdutosBar = function() {
 		$scope.produtos.forEach(function(data){
 			data.qty = 0;
 		})
+		$scope.subtotal = 0;
 	}
-
+	
 	$scope.addItem = function(produto) {
 		$scope.produtos.forEach(function(data) {
 			if(data.title == produto.title) {
 				data.qty += 1;
+				$scope.subtotal += data.preco;
 			}	
 		})
 	}
 
-})
+	$scope.salvarProdutosBar = function() {
+		
+		var basket = $scope.produtos;	
+		var barClients = localStorageService.get('bar');
+		
+		for(var i = 0; i < barClient.produtos.length; i++) {
+			if(barClient.produtos[i].title == basket[i].title) {
+				barClient.produtos[i].qty += basket[i].qty;
+			}	
+		}	
 
-.controller('barNewClientCtrl', function($scope, $location, localStorageService) {
-	console.log("asd")
+		barClients.forEach(function(obj) {
+			if(obj.nome == barClient.nome) {
+				obj.produtos = barClient.produtos;
+				localStorageService.set('bar', '')
+				localStorageService.set('bar', barClients)
+			}
+		})
+
+		$scope.resetProdutosBar();
+		$scope.voltar();
+		//TODO
+		//print the receipt
+	}
+
 })
 
 .controller('sincronizarCtrl', function($scope, $location,  $interval, localStorageService) {
 	localStorageService.set('clients', '');
+	localStorageService.set('bar', '');
 	var terminal = $interval(function(){
 		$interval.cancel(terminal);
 		$location.path('/')
