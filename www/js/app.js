@@ -62,6 +62,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'LocalStorageModule']
 			templateUrl:'templates/bar-new-client.html',
 			controller:'barNewClientCtrl'
 		})
+		
+		.state('bar-resumo-client', {
+			url: '/bar-resumo-client',
+			templateUrl: 'templates/bar-resumo-client.html',
+			controller:'barResumoClientCtrl'
+		})
 
 		.state('history', {
 			url:'/Histórico',

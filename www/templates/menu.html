@@ -4,7 +4,7 @@
 	</ion-header-bar>
 	<ion-content>
 		<ion-list>
-	       		<ion-item ng-repeat="item in menu" href="#/{{item.title}}">
+	       		<ion-item id="menuContainer" ng-repeat="item in menu" href="#/{{item.title}}">
 	      			{{item.title}}
 	      	  	</ion-item>
 		</ion-list>

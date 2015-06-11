@@ -1,0 +1,21 @@
+<ion-view>
+	<ion-header-bar align-title="center" class="bar-stable">
+		<div class="buttons">
+			<button class="button" onclick="window.location.href='#/bar-client'">voltar</button>
+		</div>
+		<h1 class="title">{{barClient.nome}}</h1>
+	</ion-header-bar>
+	<ion-content>
+		<div>
+			<h3 style="padding:20px">Total bar: <span>R$ {{total}}</span></h3>
+		</div>
+		<div class="barResumoContainer" ng-repeat="produto in produtos" ng-if="produto.qty > 0">
+			<li class="item item-button-right" ng-click="addItem({{produto}})">
+				<i class="title">{{produto.title}}</i>
+				<i class="preco"><span>preço:</span> R$ {{produto.preco}}</i>
+				<i class="qty"><span>qtd:</span> {{produto.qty}}</i>
+			</li>
+		</div>
+		<button id="resumoConfirmarPagamento">Fazer Pagamento</button>
+	</ion-content>	
+</ion-view>

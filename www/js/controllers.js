@@ -1,11 +1,22 @@
 var produtos =	[
 	{'title':'Refrigerante', 'qty':0, 'preco':2.50},
-	{'title': 'Refrigerante 2 Litros', 'qty':0, 'preco': 3.50},
+	{'title': 'Refrigerante 2 Litros', 'qty':0, 'preco': 8.00},
+	{'title': 'Refrigerante 1.5 Litros', 'qty':0, 'preco': 7.00},
+	{'title': 'Cerveja', 'qty':0, 'preco': 3.50},
 	{'title': 'Suco', 'qty':0,'preco': 2.00},
 	{'title': 'Água', 'qty':0,'preco':2.00},
 	{'title': 'Água com gás', 'qty':0,'preco': 2.50},
 	{'title': 'Picolé sabor fruta', 'qty':0,'preco': 2.00},
-	{'title': 'Picolé sabor chocolate', 'qty':0,'preco': 2.50}
+	{'title': 'Picolé sabor creme', 'qty':0,'preco': 3.50},
+	{'title': 'Queijo quente', 'qty':0,'preco': 3.50},
+	{'title': 'Misto quente', 'qty':0,'preco': 3.50},
+	{'title': 'Kalzone', 'qty':0,'preco': 3.50},
+	{'title': 'Chiclete', 'qty':0,'preco': 2.00},
+	{'title': 'Chocolate', 'qty':0,'preco': 2.00},
+	{'title': 'Sonho de valsa', 'qty':0,'preco': 1.20},
+	{'title': 'Paçoca', 'qty':0,'preco': 1.00},
+	{'title': 'Refeição', 'qty':0,'preco': 15.00},
+	{'title': 'Café', 'qty':0,'preco': 2.00}
 ]
 
 angular.module('starter.controllers', ['LocalStorageModule'])
@@ -22,7 +33,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 })
 
 .controller('checkinCtrl', function($scope, $location, localStorageService) {
-   	 var clients = localStorageService.get('clients') || []; 
+	var clients = localStorageService.get('clients') || []; 
 	$scope.cabanas = [
 		'Tucano',
 		'Lagao',
@@ -32,27 +43,27 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 	$scope.checkinData = {};
     
 	$scope.submit = function() {
-            var key = 'clients';
-            var client = {
-                    client_id: clients.length,
-                    nome: $scope.checkinData.nome,
-                    sexo: $scope.checkinData.sexo,
-                    cidade: $scope.checkinData.cidade,
-                    email: $scope.checkinData.email,
-                    checkin: $scope.checkinData.checkin,
-                    checkout: $scope.checkinData.checkout,
-                    cabana: $scope.checkinData.cabana,
-                    pessoas: $scope.checkinData.pessoas,
-		    diaria: $scope.checkinData.diaria,
-                    checkoutConfirmado: false
-            }
-            $scope.checkinData = null;
-	    $scope.checkinData = {};
-	    clients.push(client);
-            localStorageService.set(key, clients);
-	    inserirBarClient(client)
-	    $location.path('/')
-   	 }
+		var key = 'clients';
+		var client = {
+			client_id: clients.length,
+			nome: $scope.checkinData.nome,
+			sexo: $scope.checkinData.sexo,
+			cidade: $scope.checkinData.cidade,
+			email: $scope.checkinData.email,
+			checkin: $scope.checkinData.checkin,
+			checkout: $scope.checkinData.checkout,
+			cabana: $scope.checkinData.cabana,
+			pessoas: $scope.checkinData.pessoas,
+			diaria: $scope.checkinData.diaria,
+			checkoutConfirmado: false
+		}
+		$scope.checkinData = null;
+		$scope.checkinData = {};
+		clients.push(client);
+		localStorageService.set(key, clients);
+		inserirBarClient(client)
+		$location.path('/')
+	}
 
 	function inserirBarClient(client) {
 		var newBarClient = {
@@ -76,17 +87,17 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 	$scope.clients = localStorageService.get('clients')
 
 	$scope.filtrar = function() {
-    		$scope.clients = localStorageService.get('clients')
+		$scope.clients = localStorageService.get('clients')
 
-    		function convertDate(data) {
+		function convertDate(data) {
 			var from = new Date(data);
 			var to = new Date();
 			to.setDate(from.getDate());
 			to.setHours(0,0,0,0)
 			return to.toString();
-	    	}
+		}
 
-            	if($scope.histData.checkin && $scope.histData.checkout) {
+		if($scope.histData.checkin && $scope.histData.checkout) {
 			var clients = $scope.clients;
 			$scope.clients = [];	
 			clients.forEach(function(data){
@@ -109,7 +120,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 			})
 		}
 
-    		if($scope.histData.checkout && !$scope.histData.checkin) {
+		if($scope.histData.checkout && !$scope.histData.checkin) {
 			var clients = $scope.clients;
 			$scope.clients = [];	
 			clients.forEach(function(data){
@@ -122,26 +133,26 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 	}
 
 	$scope.limparCampos = function() {
-    		$scope.clients = localStorageService.get('clients')
-    		$scope.histData.checkin = "";
-    		$scope.histData.checkout = "";
-    	}
+		$scope.clients = localStorageService.get('clients')
+		$scope.histData.checkin = "";
+		$scope.histData.checkout = "";
+	}
 })
 
 .controller('checkoutCtrl', function($scope, $location, localStorageService, dataService) {
 	$scope.checkoutData = {};
-    	$scope.clients = localStorageService.get('clients')
+	$scope.clients = localStorageService.get('clients')
 	$scope.checkout = function(client) {
 		dataService.update(client)
 		$location.path('/completar-checkout')
-    	}
-    	$scope.mainMenu = function() {
+	}
+	$scope.mainMenu = function() {
 		$location.path('/home')
-    	}
+	}
 })
 
 .factory('dataService', function() {
-    	return {
+	return {
 		client: {},
 
 		update: function(data) {
@@ -189,9 +200,9 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 		})
 	}
 
-    	$scope.cabanas = [
+	$scope.cabanas = [
 		'Tucano',
-	       	'Lagao',
+		'Lagoa',
 		'Coruja'
 	]
 
@@ -205,24 +216,24 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 		$scope.closeModal();
 	}
 
-  	$ionicModal.fromTemplateUrl('templates/bar-new-client.html', {
-  		scope: $scope,
-      		animation: 'slide-in-up'
+	$ionicModal.fromTemplateUrl('templates/bar-new-client.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
 	}).then(function(modal) {
-	      $scope.modal = modal;
+		$scope.modal = modal;
 	});
 	
 	$scope.openModal = function() {
-	        $scope.modal.show();
-      	};
+		$scope.modal.show();
+	};
 
 	$scope.closeModal = function() {
-	      $scope.modal.hide();
+		$scope.modal.hide();
 	};
 })
 
 .factory('barService', function() {
-    	return {
+	return {
 		barClient: {},
 
 		update: function(client) {
@@ -237,7 +248,10 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 	$scope.client = barService.barClient;
 	$scope.produtos = produtos;
 	$scope.subtotal = 0;
-	
+	$scope.produtos.forEach(function(data) {
+		data.preco = Number(data.preco).toFixed(2);
+	})
+
 	$scope.voltar = function() {
 		$scope.produtos.forEach(function(data){
 			data.qty = 0;
@@ -256,7 +270,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 		$scope.produtos.forEach(function(data) {
 			if(data.title == produto.title) {
 				data.qty += 1;
-				$scope.subtotal += data.preco;
+				$scope.subtotal = Number(parseFloat($scope.subtotal) + parseFloat(data.preco)).toFixed(2);
 			}	
 		})
 	}
@@ -286,6 +300,25 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 		//print the receipt
 	}
 
+	$scope.resumoBar = function() {
+		$location.path('/bar-resumo-client')
+	}
+
+})
+
+.controller('barResumoClientCtrl', function($scope, $location, barService, localStorageService) {
+	var total = 0;
+	$scope.barClient = barService.barClient;
+	$scope.barClient.produtos.forEach(function(data) {
+		total += data.qty * data.preco;
+		data.preco = Number(data.preco).toFixed(2);
+	})
+	$scope.total = Number(total).toFixed(2);
+	$scope.produtos = $scope.barClient.produtos;
+
+	$scope.fazerPagamento = function() {
+		console.log("asd")
+	}
 })
 
 .controller('sincronizarCtrl', function($scope, $location,  $interval, localStorageService) {
