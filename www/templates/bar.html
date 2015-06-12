@@ -9,7 +9,7 @@
 		</div>
 	</ion-header-bar>
 	<ion-content>
-		<div class="barContainer" ng-repeat="client in clients.slice().reverse()" nf-id="!client.checkoutConfirmado" ng-class-odd="'odd'" ng-class-even="'even'">
+		<div class="barContainer" ng-repeat="client in clients.slice().reverse()" ng-if="!client.pago" ng-class-odd="'odd'" ng-class-even="'even'">
 			<li class="item item-button-right" ng-click="go(client)">
 				<h1>{{client.nome}}</h1>
 				<h2>{{client.cabana}}</h2>

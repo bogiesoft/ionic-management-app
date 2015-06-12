@@ -1,23 +1,35 @@
-var produtos =	[
-	{'title':'Refrigerante', 'qty':0, 'preco':2.50},
-	{'title': 'Refrigerante 2 Litros', 'qty':0, 'preco': 8.00},
-	{'title': 'Refrigerante 1.5 Litros', 'qty':0, 'preco': 7.00},
-	{'title': 'Cerveja', 'qty':0, 'preco': 3.50},
-	{'title': 'Suco', 'qty':0,'preco': 2.00},
-	{'title': 'Água', 'qty':0,'preco':2.00},
-	{'title': 'Água com gás', 'qty':0,'preco': 2.50},
-	{'title': 'Picolé sabor fruta', 'qty':0,'preco': 2.00},
-	{'title': 'Picolé sabor creme', 'qty':0,'preco': 3.50},
-	{'title': 'Queijo quente', 'qty':0,'preco': 3.50},
-	{'title': 'Misto quente', 'qty':0,'preco': 3.50},
-	{'title': 'Kalzone', 'qty':0,'preco': 3.50},
-	{'title': 'Chiclete', 'qty':0,'preco': 2.00},
-	{'title': 'Chocolate', 'qty':0,'preco': 2.00},
-	{'title': 'Sonho de valsa', 'qty':0,'preco': 1.20},
-	{'title': 'Paçoca', 'qty':0,'preco': 1.00},
-	{'title': 'Refeição', 'qty':0,'preco': 15.00},
-	{'title': 'Café', 'qty':0,'preco': 2.00}
-]
+var produtos = function(){
+	return [
+		{'title':'Refrigerante', 'qty':0, 'preco':2.50},
+		{'title': 'Refrigerante 2 Litros', 'qty':0, 'preco': 8.00},
+		{'title': 'Refrigerante 1.5 Litros', 'qty':0, 'preco': 7.00},
+		{'title': 'Cerveja', 'qty':0, 'preco': 3.50},
+		{'title': 'Suco', 'qty':0,'preco': 2.00},
+		{'title': 'Água', 'qty':0,'preco':2.00},
+		{'title': 'Água com gás', 'qty':0,'preco': 2.50},
+		{'title': 'Picolé sabor fruta', 'qty':0,'preco': 2.00},
+		{'title': 'Picolé sabor creme', 'qty':0,'preco': 3.50},
+		{'title': 'Queijo quente', 'qty':0,'preco': 3.50},
+		{'title': 'Misto quente', 'qty':0,'preco': 3.50},
+		{'title': 'Kalzone', 'qty':0,'preco': 3.50},
+		{'title': 'Chiclete', 'qty':0,'preco': 2.00},
+		{'title': 'Chocolate', 'qty':0,'preco': 2.00},
+		{'title': 'Sonho de valsa', 'qty':0,'preco': 1.20},
+		{'title': 'Paçoca', 'qty':0,'preco': 1.00},
+		{'title': 'Refeição', 'qty':0,'preco': 15.00},
+		{'title': 'Café', 'qty':0,'preco': 2.00}
+	]
+}
+
+
+var CestaCompras = function() {
+	return {
+		client_id: "",
+		assinatura:"",
+		data: "",
+		cesta: "",
+	}
+}
 
 angular.module('starter.controllers', ['LocalStorageModule'])
 
@@ -32,54 +44,6 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 	]
 })
 
-.controller('checkinCtrl', function($scope, $location, localStorageService) {
-	var clients = localStorageService.get('clients') || []; 
-	$scope.cabanas = [
-		'Tucano',
-		'Lagao',
-		'Coruja'
-	]
-
-	$scope.checkinData = {};
-    
-	$scope.submit = function() {
-		var key = 'clients';
-		var client = {
-			client_id: clients.length,
-			nome: $scope.checkinData.nome,
-			sexo: $scope.checkinData.sexo,
-			cidade: $scope.checkinData.cidade,
-			email: $scope.checkinData.email,
-			checkin: $scope.checkinData.checkin,
-			checkout: $scope.checkinData.checkout,
-			cabana: $scope.checkinData.cabana,
-			pessoas: $scope.checkinData.pessoas,
-			diaria: $scope.checkinData.diaria,
-			checkoutConfirmado: false
-		}
-		$scope.checkinData = null;
-		$scope.checkinData = {};
-		clients.push(client);
-		localStorageService.set(key, clients);
-		inserirBarClient(client)
-		$location.path('/')
-	}
-
-	function inserirBarClient(client) {
-		var newBarClient = {
-			nome:client.nome,
-			cabana:client.cabana,
-			sexo: client.sexo,
-			email: client.email,
-			produtos:produtos,
-			total: 0,
-			pago: false
-		}
-		var barClients = localStorageService.get('bar') || []
-		barClients.push(newBarClient)
-		localStorageService.set('bar', barClients)	
-	}	
-})
 
 .controller('historyCtrl', function($scope, localStorageService) {
 	$scope.histData = {}
@@ -191,13 +155,8 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 	$scope.clients = localStorageService.get('bar')
 	
 	$scope.go = function(client) {
-		var barClients = localStorageService.get('bar');
-		barClients.forEach(function(obj) {
-			if(client.nome == obj.nome) {
-				barService.update(obj)
-				$location.path('/bar-client')
-			}
-		})
+		barService.update(client)
+		$location.path('/bar-client')
 	}
 
 	$scope.cabanas = [
@@ -235,9 +194,14 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 .factory('barService', function() {
 	return {
 		barClient: {},
-
+		cesta: {},
+		
 		update: function(client) {
 			this.barClient = client;
+		},
+
+		updateProdutos: function(itemsCesta) {
+			this.cesta = itemsCesta
 		}
 	}
 })
@@ -246,8 +210,9 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
 	var barClient = barService.barClient;
 	$scope.client = barService.barClient;
-	$scope.produtos = produtos;
+	$scope.produtos = new produtos();
 	$scope.subtotal = 0;
+
 	$scope.produtos.forEach(function(data) {
 		data.preco = Number(data.preco).toFixed(2);
 	})
@@ -277,27 +242,35 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
 	$scope.salvarProdutosBar = function() {
 		
-		var basket = $scope.produtos;	
-		var barClients = localStorageService.get('bar');
-		
-		for(var i = 0; i < barClient.produtos.length; i++) {
-			if(barClient.produtos[i].title == basket[i].title) {
-				barClient.produtos[i].qty += basket[i].qty;
+		var _basket = [];
+
+		for(var i = 0; i < $scope.produtos.length; i++) {
+			if($scope.produtos[i].qty > 0) {
+				var _produto = $scope.produtos[i];
+				_basket.push(_produto)
 			}	
 		}	
 
-		barClients.forEach(function(obj) {
+		var barClients = localStorageService.get('bar');
+		
+		/*for(var i = 0; i < barClient.produtos.length; i++) {
+			if(barClient.produtos[i].title == basket[i].title) {
+				barClient.produtos[i].qty += basket[i].qty;
+			}	
+		}*/	
+
+		/*barClients.forEach(function(obj) {
 			if(obj.nome == barClient.nome) {
 				obj.produtos = barClient.produtos;
 				localStorageService.set('bar', '')
 				localStorageService.set('bar', barClients)
 			}
-		})
+		})*/
 
-		$scope.resetProdutosBar();
-		$scope.voltar();
-		//TODO
-		//print the receipt
+
+		barService.update(barClient)
+		barService.updateProdutos(_basket)
+		$location.path('/bar-assinatura-client')
 	}
 
 	$scope.resumoBar = function() {
@@ -306,24 +279,105 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
 })
 
-.controller('barResumoClientCtrl', function($scope, $location, barService, localStorageService) {
+.controller('barAssinaturaCtrl', function($scope, $state,  $ionicHistory, $location, barService, localStorageService) {
+	
+	var canvas = document.getElementById('signatureCanvas');
+	var signaturePad = new SignaturePad(canvas);
+    
+	var barClient = barService.barClient
+	var cesta = barService.cesta
+	
+	$scope.salvarCestaDeCompras = function() {
+		var cestaCompras = new CestaCompras()
+		
+		cestaCompras.client_id= barClient.client_id;
+		cestaCompras.assinatura= signaturePad.toDataURL(); 
+		cestaCompras.cesta= cesta;
+		cestaCompras.data= new Date()
+
+		var cestaList = localStorageService.get('cesta') || []
+	
+		cestaList.push(cestaCompras)
+		localStorageService.set('cesta', cestaList)
+		$ionicHistory.goBack(-3);
+	}
+
+	$scope.clearCanvas = function() {
+		signaturePad.clear();
+	}
+	    
+})
+
+.controller('barResumoClientCtrl', function($scope, $location, $ionicHistory, barService, localStorageService) {
+	
 	var total = 0;
-	$scope.barClient = barService.barClient;
-	$scope.barClient.produtos.forEach(function(data) {
+	var cestaList = localStorageService.get('cesta')
+	var cesta = []
+	var cestaCombined = [];
+	
+	cestaList.forEach(function(data) {
+		if(data.client_id == barService.barClient.client_id) {
+			data.cesta.forEach(function(items) {
+				cesta.push(items)
+			})
+		}
+	})
+
+
+	function reduce(array) {
+		var obj = []
+		var final = []
+		array.forEach(function(data) {
+			if(!obj[data.title]) {
+				obj[data.title] = data;
+			} else {
+				if(obj[data.title].title == data.title) {
+					obj[data.title].qty += data.qty
+				}
+			}
+		})
+		
+		for(var o in obj) {
+			final.push(obj[o])
+		}
+		
+	    return final
+	}
+		
+	cestaCombined = reduce(cesta)
+
+	cestaCombined.forEach(function(data) {
 		total += data.qty * data.preco;
 		data.preco = Number(data.preco).toFixed(2);
 	})
+	
+	$scope.barClient = barService.barClient;
 	$scope.total = Number(total).toFixed(2);
-	$scope.produtos = $scope.barClient.produtos;
+	$scope.produtos = cestaCombined;
 
 	$scope.fazerPagamento = function() {
-		console.log("asd")
+		var barClients = localStorageService.get('bar')
+		var barClient;
+
+		barClients.forEach(function(data) {
+			if(data.client_id == barService.barClient.client_id) {
+				data.pago = true;
+				data.total = Number(total).toFixed(2);
+				data.cesta = 
+				localStorageService.set('bar', '');
+				localStorageService.set('bar', barClients)
+				$ionicHistory.goBack(-3)
+			}
+		})
 	}
 })
+
+// Sincronizar Controller
 
 .controller('sincronizarCtrl', function($scope, $location,  $interval, localStorageService) {
 	localStorageService.set('clients', '');
 	localStorageService.set('bar', '');
+	localStorageService.set('cesta', '');
 	var terminal = $interval(function(){
 		$interval.cancel(terminal);
 		$location.path('/')
