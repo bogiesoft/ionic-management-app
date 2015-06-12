@@ -52,10 +52,19 @@ var BarClient = function(){
 
 angular.module('starter.checkinCtrl', ['LocalStorageModule']).controller('checkinCtrl', function($scope, $location, localStorageService) {
 	var clients = localStorageService.get('clients') || []; 
-	$scope.cabanas = [
-		'Tucano',
-		'Lagao',
-		'Coruja'
+
+	$scope.cabanas = [ 
+		'Tucano', 
+                'Aves', 
+                'Lagoa', 
+                'Chalé', 
+                'Tatu', 
+                'Cabana 5 - 6', 
+                'Casarão', 
+                'Figueira', 
+                'Ecológica', 
+                'Marrecos', 
+                'Cavalo branco' 
 	]
 
 	$scope.checkinData = {};

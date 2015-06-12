@@ -219,7 +219,17 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 	}
 
 	$scope.cabanas = [
-	
+		'Tucano',
+		'Aves',
+		'Lagoa',
+		'Chalé',
+		'Tatu',
+		'Cabana 5 - 6',
+		'Casarão',
+		'Figueira',
+		'Ecológica',
+		'Marrecos',
+		'Cavalo branco'
 	]
 
 	$scope.barData = {}
