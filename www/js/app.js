@@ -75,6 +75,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.checkinCtrl'
 			controller:'barResumoClientCtrl'
 		})
 
+		.state('bar-historico-client', {
+			url: '/bar-historico-client',
+			templateUrl: 'templates/bar-historico-client.html',
+			controller:'barHistoricoClientCtrl'
+		})
+
 		.state('history', {
 			url:'/Histórico',
 			templateUrl:'templates/history.html',

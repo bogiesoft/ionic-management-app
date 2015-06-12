@@ -106,6 +106,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 .controller('checkoutCtrl', function($scope, $location, localStorageService, dataService) {
 	$scope.checkoutData = {};
 	$scope.clients = localStorageService.get('clients')
+	
 	$scope.checkout = function(client) {
 		dataService.update(client)
 		$location.path('/completar-checkout')
@@ -125,9 +126,53 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 	}
 })
 
-.controller('compCheckoutCtrl', function($scope, dataService, localStorageService) {
-	$scope.client = dataService.client;
+.controller('compCheckoutCtrl', function($scope, $state, $location, dataService, localStorageService, $ionicHistory) {
+	var barClients = localStorageService.get('bar')
+	var barClient;
+	var cestas = localStorageService.get('cesta')
+	var cestaClient = [];
 
+	barClients.forEach(function(data) {
+		if(data.client_id == dataService.client.client_id) {
+			barClient = data;	
+		}
+	})
+	
+	cestas.forEach(function(data) {
+		if(data.client_id == dataService.client.client_id) {
+			data.cesta.forEach(function(item){
+				cestaClient.push(item)	
+			})
+		}
+	})
+
+	function reduce(array) {
+		var obj = []
+		var final = []
+		array.forEach(function(data) {
+			if(!obj[data.title]) {
+				obj[data.title] = data;
+			} else {
+				if(obj[data.title].title == data.title) {
+					obj[data.title].qty += data.qty
+				}
+			}
+		})
+	
+		var valorTotal = 0;
+		for(var o in obj) {
+			valorTotal = Number(parseFloat(valorTotal) + parseFloat(obj[o].preco * obj[o].qty)).toFixed(2)
+		}
+		
+	    return valorTotal
+	}
+	if(!barClient.pago)		
+		$scope.totalbar = reduce(cestaClient)
+	else {
+		$scope.totalbar = 0
+	}
+	$scope.client = dataService.client;
+	
 	function days_between(date1, date2) {
 		var ONE_DAY = 1000 * 60 * 60 *24;
 		var date1_ms = date1.getTime();
@@ -136,19 +181,33 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 		return Math.round(difference_ms/ONE_DAY)	
 	}
 
-	$scope.diaria = dataService.client.diaria * days_between(new Date(dataService.client.checkin), new Date(dataService.client.checkout))
+	$scope.diaria = dataService.client.diaria * days_between(new Date(dataService.client.checkin), new Date(dataService.client.checkout)) * dataService.client.pessoas
+	$scope.totalHospegagem = Number(parseFloat($scope.diaria) + parseFloat($scope.totalbar)).toFixed(2)
 
-	var clients = localStorageService.get('clients')
 	$scope.checkout = function(client) {
-		var clientes = clients;
-		for(var i = 0; i < clients.length; i++) {
-			if(clientes[i]['client_id'] == client.client_id) {
-				clientes[i]['checkoutConfirmado'] == true;
+		var clients = localStorageService.get('clients')
+		clients.forEach(function(data) {
+			if(data.client_id == dataService.client.client_id) {
+				data.checkoutConfirmado = true;
 				localStorageService.set('clients',  '');
-				localStorageService.set('clients', clientes)
+				localStorageService.set('clients', clients)
 			}
-		}
+		})
+			
+		
+		barClients.forEach(function(data) {
+			if(data.client_id == barClient.client_id) {
+				data.pago = true;
+				data.total = Number($scope.totalbar).toFixed(2);
+				localStorageService.set('bar', '');
+				localStorageService.set('bar', barClients)
+			}
+		})
+		$ionicHistory.clearCache();
+		$ionicHistory.goToHistoryRoot($ionicHistory.currentView().historyId)
 	}
+
+	
 })
 
 .controller('barCtrl', function($scope, $ionicModal, barService, $location, localStorageService) {
@@ -160,9 +219,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 	}
 
 	$scope.cabanas = [
-		'Tucano',
-		'Lagoa',
-		'Coruja'
+	
 	]
 
 	$scope.barData = {}
@@ -253,21 +310,6 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
 		var barClients = localStorageService.get('bar');
 		
-		/*for(var i = 0; i < barClient.produtos.length; i++) {
-			if(barClient.produtos[i].title == basket[i].title) {
-				barClient.produtos[i].qty += basket[i].qty;
-			}	
-		}*/	
-
-		/*barClients.forEach(function(obj) {
-			if(obj.nome == barClient.nome) {
-				obj.produtos = barClient.produtos;
-				localStorageService.set('bar', '')
-				localStorageService.set('bar', barClients)
-			}
-		})*/
-
-
 		barService.update(barClient)
 		barService.updateProdutos(_basket)
 		$location.path('/bar-assinatura-client')
@@ -363,13 +405,28 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 			if(data.client_id == barService.barClient.client_id) {
 				data.pago = true;
 				data.total = Number(total).toFixed(2);
-				data.cesta = 
 				localStorageService.set('bar', '');
 				localStorageService.set('bar', barClients)
 				$ionicHistory.goBack(-3)
 			}
 		})
 	}
+
+	$scope.historicoCompras = function() {
+		$location.path('/bar-historico-client') 	
+	}
+})
+
+.controller('barHistoricoClientCtrl', function($scope, $ionicHistory, barService, localStorageService) {
+
+	var cestas = localStorageService.get('cesta')
+	var cestaClient = []
+	cestas.forEach(function(data) {
+		if(data.client_id == barService.barClient.client_id) {
+			cestaClient.push(data)
+		}
+	})
+	$scope.cestaClient = cestaClient;
 })
 
 // Sincronizar Controller

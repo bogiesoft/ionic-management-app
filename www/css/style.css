@@ -295,6 +295,49 @@
 	margin-bottom:0px;
 }
 
+/* bar-historico-client.html */
+
+.listaDeCompras {
+}
+
+.listaDeCompras p {
+	padding:20px;
+	font-size:22px;	
+}
+
+.listaDeCompras li {
+	font-size:22px;
+	height:70px;
+	padding: 25px 0 0 50px;
+	border:none;
+	background:transparent
+}
+
+.listaDeCompras .title {
+	margin:0 -20px;
+	padding:0;
+}
+
+.listaDeCompras .qty {
+	float:right;
+	margin-right:150px;
+}
+
+.listaDeCompras .preco {
+	float:right;
+	width:200px;
+}
+
+#historicoComprasContainer .even {
+	font-size:22px;
+}
+
+#historicoComprasContainer .odd {	
+	font-size:22px;
+	background: #eee;	
+	border: solid 2px #ccc;
+}
+
 /* signature.html */
 
 #assinaturaContainer {

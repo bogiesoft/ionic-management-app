@@ -1,0 +1,21 @@
+<ion-view>
+	<ion-header-bar align-title="center" class="bar-stable">
+       		<div class="buttons">
+			<button class="button" onclick="window.location.href='#/bar-resumo-client'">voltar</button>
+	       	</div>
+		<h1 class="title">Histórico de compras</h1>
+	</ion-header-bar>
+	<ion-content>
+		<div id="historicoComprasContainer">
+			<div class="listaDeCompras" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="cesta in cestaClient" >
+				<p>Lista de produtos -  dia {{cesta.data | date: dd/MM/yyyy}}</p>
+				<li class="item item-button-right" ng-repeat="produto in cesta.cesta">
+					<i class="title">{{produto.title}}</i>
+					<i class="preco"><span>preço:</span> R$ {{produto.preco}}</i>
+					<i class="qty"><span>qtd:</span> {{produto.qty}}</i>
+				</li>
+				<img width="400px" height="200px" src="{{cesta.assinatura}}" />
+			</div>		
+		</div>	
+	</ion-content>
+</ion-view>

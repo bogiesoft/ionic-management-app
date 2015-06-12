@@ -12,9 +12,9 @@
 			<p>check-in: <span>{{client.checkin | date: dd/MM/yyyy}}</span></p>	
 			<p>check-out: <span>{{client.checkout | date: dd/MM/yyyy}}</span></p>	
 			<p>diária: <span>R$ {{diaria}}</span></p>
-			<p>bar: <span>R$ {{client.bar}}</span>
-			<p>total hospedagem: <span> <!-- diarias + bar --> </span>	
-			<input type="submit" value="Confirmar Checkout">
+			<p>bar: <span>R$ {{totalbar}}</span>
+			<p>total hospedagem: <span>R$ {{totalHospegagem}}</span>	
+			<input type="submit" value="Confirmar Checkout" ng-click="checkout()">
 		</div>		
 	</ion-content>
 </ion-view>
