@@ -1,6 +1,6 @@
 var produtos = function(){
 	return [
-		{'title':'Refrigerante', 'qty':0, 'preco':2.50},
+		{'title':'Refrigerante', 'qty':0, 'preco':3.50},
 		{'title': 'Refrigerante 2 Litros', 'qty':0, 'preco': 8.00},
 		{'title': 'Refrigerante 1.5 Litros', 'qty':0, 'preco': 7.00},
 		{'title': 'Cerveja', 'qty':0, 'preco': 3.50},
@@ -16,6 +16,9 @@ var produtos = function(){
 		{'title': 'Chocolate', 'qty':0,'preco': 2.00},
 		{'title': 'Sonho de valsa', 'qty':0,'preco': 1.20},
 		{'title': 'Paçoca', 'qty':0,'preco': 1.00},
+		{'title': 'Caipirinha/cachaça', 'qty':0,'preco': 5.00},
+		{'title': 'Caipirinha/vodka', 'qty':0,'preco': 6.00},
+		{'title': 'Caipirinha/bacardi', 'qty':0,'preco': 8.00},
 		{'title': 'Refeição', 'qty':0,'preco': 15.00},
 		{'title': 'Café', 'qty':0,'preco': 2.00}
 	]
