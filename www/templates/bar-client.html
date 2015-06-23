@@ -1,25 +1,25 @@
 <ion-view>
-	<ion-header-bar align-title="center" class="bar-stable">
-		<div class="buttons">
-			<button class="button" ng-click="voltar()">Voltar</button>
-		</div>
-		<h1 class="title">{{client.nome}}</h1>
-	</ion-header-bar>
-	<ion-content>
-		<div id="barClientNome">
-			<h3>R$ {{subtotal}}</h3>
-		</div>
-		<div class="barClientContainer" ng-repeat="produto in produtos">
-			<li class="item item-button-right" ng-click="addItem({{produto}})">
-			<i class="title">{{produto.title}}</i>
-			<i class="preco"><span>preço: </span>{{produto.preco}}</i>
-			<i class="qty"><span>qtd: </span> {{produto.qty}}</i>
-			</li>
-		</div>
-		<div id="barClientButtons">
-			<button id="salvarProdutosBar" ng-click="salvarProdutosBar()">Salvar produtos</button>
-			<button id="resetProdutosBar" ng-click="resetProdutosBar()">Zerar produtos</button>
-			<button id="resumoProdutosBar" ng-click="resumoBar()">Resumo total bar</button>
-		</div>
-	</ion-content>
+<ion-header-bar align-title="center" class="bar-stable">
+<div class="buttons">
+	<button class="button" ng-click="voltar()">Voltar</button>
+</div>
+<h1 class="title">{{client.nome}}</h1>
+</ion-header-bar>
+<ion-content>
+<div id="barClientNome">
+	<h3>R$ {{subtotal}}</h3>
+</div>
+<div class="barClientContainer" ng-repeat="produto in produtos">
+	<li class="item item-button-right" ng-click="addItem({{produto}})">
+	<i class="title">{{produto.title}}</i>
+	<i class="preco"><span>preço: </span>{{produto.preco}}</i>
+	<i class="qty"><span>qtd: </span> {{produto.qty}}</i>
+	</li>
+</div>
+<div id="barClientButtons">
+	<button id="salvarProdutosBar" ng-click="salvarProdutosBar()">Salvar produtos</button>
+	<button id="resetProdutosBar" ng-click="resetProdutosBar()">Zerar produtos</button>
+	<button id="resumoProdutosBar" ng-click="resumoBar()">Resumo total bar</button>
+</div>
+</ion-content>
 </ion-view>

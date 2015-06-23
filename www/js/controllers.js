@@ -9,8 +9,8 @@ var produtos = function(){
 		{'title': 'Água com gás', 'qty':0,'preco': 2.50},
 		{'title': 'Picolé sabor fruta', 'qty':0,'preco': 2.00},
 		{'title': 'Picolé sabor creme', 'qty':0,'preco': 3.50},
-		{'title': 'Queijo quente', 'qty':0,'preco': 3.50},
-		{'title': 'Misto quente', 'qty':0,'preco': 3.50},
+		{'title': 'Queijo quente', 'qty':0,'preco': 4.00},
+		{'title': 'Misto quente', 'qty':0,'preco': 4.00},
 		{'title': 'Kalzone', 'qty':0,'preco': 3.50},
 		{'title': 'Chiclete', 'qty':0,'preco': 2.00},
 		{'title': 'Chocolate', 'qty':0,'preco': 2.00},
@@ -138,13 +138,15 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 		}
 	})
 	
-	cestas.forEach(function(data) {
-		if(data.client_id == dataService.client.client_id) {
-			data.cesta.forEach(function(item){
-				cestaClient.push(item)	
-			})
-		}
-	})
+	if(cestas){
+		cestas.forEach(function(data) {
+			if(data.client_id == dataService.client.client_id) {
+				data.cesta.forEach(function(item){
+					cestaClient.push(item)	
+				})
+			}
+		})
+	}
 
 	function reduce(array) {
 		var obj = []
@@ -437,17 +439,4 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 		}
 	})
 	$scope.cestaClient = cestaClient;
-})
-
-// Sincronizar Controller
-
-.controller('sincronizarCtrl', function($scope, $location,  $interval, localStorageService) {
-	localStorageService.set('clients', '');
-	localStorageService.set('bar', '');
-	localStorageService.set('cesta', '');
-	var terminal = $interval(function(){
-		$interval.cancel(terminal);
-		$location.path('/')
-	}, 1000)
-
 })
